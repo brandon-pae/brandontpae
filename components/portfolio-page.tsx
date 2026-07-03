@@ -274,10 +274,11 @@ export function PortfolioPage() {
                 <br />
 
                 What I care about most is building at the intersection of artificial
-                intelligence and human expression - most recently through{" "}
-                <span className="text-accent">Unscripted</span>. Outside of work, I
-                coach MBA and college applicants through Leland and Crimson
-                Education, and mentor founders and student teams.
+                intelligence and human expression. I was selected as
+                a coach for Leland and Crimson Education&apos;s competitive
+                admissions networks, gaining firsthand insight into top coaching
+                methodologies. Now, I&apos;m building an independent coaching
+                tool, <span className="text-accent">Unscripted</span>.
               </p>
             </section>
 

@@ -13,7 +13,6 @@ const sectionNavItems: SectionNavItem[] = [
 const images = {
   headshot: "/images/headshot.png",
   columbia: "/images/Columbia.png", // Columbia crown crest
-  bcg: "/images/work_bcg.png",
   mit: "/images/MIT_logo.jpg",
   almaworks: "/images/projects_core.jpeg",
   spectator: "/images/projects_spec.png",
@@ -67,10 +66,10 @@ const journey: JourneyNode[] = [
   },
   {
     period: "Now",
-    school: "BCG Boston",
+    school: "MBB consulting, specializing in digital/tech",
     role: "Consultant - Technology & Digital",
     detail: "Advising enterprise clients on performance and automation.",
-    image: images.bcg,
+    initials: "MBB",
   },
   ANNOUNCE_MBA ? mitSloanNode : mbaPlaceholderNode,
 ];
@@ -267,8 +266,7 @@ export function PortfolioPage() {
                 Computer Science and Entrepreneurship at Columbia University,
                 graduated <em className="italic">cum laude</em> with a 3.99 GPA. I built my technical foundation
                 through software engineering internships and AI & robotics research
-                - today I work as a consultant at Boston Consulting Group, on the
-                technology and digital track.
+                - today I work in MBB consulting, specializing in digital/tech.
 
                 <br />
                 <br />
@@ -286,7 +284,7 @@ export function PortfolioPage() {
               <SectionHeader
                 kicker="01"
                 title="Journey"
-                description="Columbia, BCG, and deferred MBA"
+                description="Columbia, MBB consulting, and deferred MBA"
               />
 
               <div className="relative space-y-7 sm:space-y-8">

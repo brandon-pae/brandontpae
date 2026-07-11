@@ -21,8 +21,8 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "Brandon Pae",
   description: ANNOUNCE_MBA
-    ? "Brandon Pae — consultant at BCG Boston, MIT Sloan MBA admit, and builder working at the intersection of technology, business, and people."
-    : "Brandon Pae — consultant at BCG Boston and builder working at the intersection of technology, business, and people.",
+    ? "Brandon Pae — MBB consulting, specializing in digital/tech, MIT Sloan MBA admit, and builder working at the intersection of technology, business, and people."
+    : "Brandon Pae — MBB consulting, specializing in digital/tech, and builder working at the intersection of technology, business, and people.",
 };
 
 export default function RootLayout({

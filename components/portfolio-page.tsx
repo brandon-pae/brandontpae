@@ -63,7 +63,7 @@ const roboticsEntries: Entry[] = [
     title: "PacBot 2024",
     role: "Software Team",
     summary:
-      "Built the A* pathfinding for Columbia's entry in the 2024 PacBot competition - a robot that plays Pac-Man autonomously on a physical maze - then started on a deep Q-learning policy to push play past what shortest-path search could reach.",
+      "Built the A* pathfinding for 2024 PacBot competition (robot that plays Pac-Man autonomously on a physical maze). Also started on a deep Q-learning policy.",
     imagePair: [images.pacbotMaze, images.pacbotRobot],
     tags: ["Pathfinding", "Deep Q-learning"],
   },
@@ -72,8 +72,8 @@ const roboticsEntries: Entry[] = [
     role: "Coursework",
     summary: (
       <>
-        Built a process scheduler and a file system in C, down at the kernel
-        level. Team project with{" "}
+        Built a process tracker, custom scheduler, and a file system in C, down
+        at the kernel level. Team project with{" "}
         <a
           href="https://gist.github.com/technology08/72c9d498f84410ef3715f24ff256f139"
           target="_blank"
@@ -96,9 +96,9 @@ const productEntries: Entry[] = [
     title: "Unscripted",
     role: "Founder",
     summary:
-      "Building an AI writing tool that helps people express themselves genuinely - not in the polished, generic voice AI is trained to produce. Initially for college and MBA applicants.",
+      "Building an AI career coaching platform to help people network more effectively.",
     image: images.unscripted,
-    tags: ["AI", "Writing"],
+    tags: ["AI", "Career coaching"],
   },
   {
     title: "Dexter",
@@ -121,7 +121,7 @@ const productEntries: Entry[] = [
     title: "AI Safety",
     role: "Research",
     summary:
-      "Tested whether synthetic document fine-tuning degrades honesty in Qwen3 and DeepSeek. Both models lost task accuracy - 95% to 81% and 93% to 86% - and both slipped from 100% to 95% faithfulness. Selected for the BlueDot AI Safety cohort.",
+      "Tested whether synthetic document fine-tuning reduces chain of thought honesty in Qwen3 and DeepSeek. Both models lost task accuracy and slipped from 100% to 95% faithfulness. Selected for the BlueDot AI Safety cohort.",
     image: images.aiSafety,
     tags: ["PyTorch", "Evaluation"],
   },
@@ -159,7 +159,7 @@ const experience: ExperienceRow[] = [
     org: "MBB Consulting",
     role: "Technology & Digital",
     summary:
-      "Hold the firm's Digital tag. Optimized factory initiatives across procurement and supply chain for an industrial-goods client; presented recommendations to senior client leadership.",
+      "Optimized factory initiatives across procurement and supply chain for an industrial-goods client; proposed AI implementation plan to senior client leadership; received Digital tag for tech specialization.",
     kind: "Consulting",
   },
 ];
@@ -228,7 +228,8 @@ export function PortfolioPage() {
                   Brandon Pae
                 </h1>
                 <p className="max-w-xs text-sm leading-6 text-muted">
-                  I work at the seam between hardware, software, and people.
+                  I work at the intersection between hardware, software, and
+                  people.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {["Robotics", "Systems", "Technical PM"].map((chip) => (
@@ -269,9 +270,13 @@ export function PortfolioPage() {
                 >
                   Resume
                 </a>
+                {/* Icon-only so the row fits on one line — aria-label carries
+                    the accessible name the visible text used to. */}
                 <a
                   href="https://github.com/paeb37"
-                  className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-muted transition-colors hover:border-accent/50 hover:text-accent"
+                  aria-label="GitHub"
+                  title="GitHub"
+                  className="inline-flex items-center justify-center rounded-md border border-border px-3 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -283,11 +288,12 @@ export function PortfolioPage() {
                   >
                     <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.82 1.19 1.85 1.19 3.11 0 4.43-2.7 5.41-5.26 5.7.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
                   </svg>
-                  GitHub
                 </a>
                 <a
                   href="https://linkedin.com/in/brandon-pae"
-                  className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-muted transition-colors hover:border-accent/50 hover:text-accent"
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
+                  className="inline-flex items-center justify-center rounded-md border border-border px-3 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -299,7 +305,6 @@ export function PortfolioPage() {
                   >
                     <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
                   </svg>
-                  LinkedIn
                 </a>
               </div>
 

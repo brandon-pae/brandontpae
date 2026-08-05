@@ -10,8 +10,8 @@ const sectionNavItems: SectionNavItem[] = [
 ];
 
 const images = {
-  headshot: "/images/headshot.png",
-  columbia: "/images/Columbia.png", // Columbia crown crest
+  headshot: "/images/headshot.jpg",
+  columbia: "/images/Columbia.jpeg", // Columbia crown crest
   a2r: "/images/tinympc.jpg",
   artaic: "/images/artaic-tiles.jpg",
   pacbotMaze: "/images/pacbot-maze.jpg",
@@ -55,7 +55,8 @@ const roboticsEntries: Entry[] = [
     title: "Artaic",
     role: "Engineering Intern",
     summary:
-      "Built a YOLOv5 model to classify mosaic tile types at 90% accuracy, automating the manual inspection every assembled mosaic went through before shipping.",
+      "Built a YOLOv5 model with Roboflow to classify mosaic tile types at 91% accuracy, automating the manual inspection every assembled mosaic went through before shipping.",
+    link: "https://gist.github.com/paeb37/33482298d9b78631f1198d365e710c02",
     image: images.artaic,
     tags: ["Computer vision", "YOLOv5"],
   },
@@ -63,7 +64,9 @@ const roboticsEntries: Entry[] = [
     title: "PacBot 2024",
     role: "Software Team",
     summary:
-      "Built the A* pathfinding for 2024 PacBot competition (robot that plays Pac-Man autonomously on a physical maze). Also started on a deep Q-learning policy.",
+      "Tuned A* heuristics and built ghost-prediction for Columbia's entry in the 2024 PacBot competition (robot that plays Pac-Man autonomously on a physical maze). Also prototyped a deep Q-learning policy.",
+    // Points at the branch holding my commits, not the team repo's main.
+    link: "https://github.com/carl-vbn/Pacbot-2024/tree/pathfinding-brandon",
     imagePair: [images.pacbotMaze, images.pacbotRobot],
     tags: ["Pathfinding", "Deep Q-learning"],
   },
@@ -85,6 +88,7 @@ const roboticsEntries: Entry[] = [
         .
       </>
     ),
+    link: "https://gist.github.com/technology08/72c9d498f84410ef3715f24ff256f139",
     media: <FilesystemDiagram />,
     tags: ["C", "Kernel"],
   },
@@ -97,6 +101,7 @@ const productEntries: Entry[] = [
     role: "Founder",
     summary:
       "Building an AI career coaching platform to help people network more effectively.",
+    link: "https://www.unscriptednarrative.com/",
     image: images.unscripted,
     tags: ["AI", "Career coaching"],
   },
@@ -104,7 +109,8 @@ const productEntries: Entry[] = [
     title: "Dexter",
     role: "Co-Founder",
     summary:
-      "Built an AI redaction tool for consulting slide decks, saving ~125 hours per consultant annually. Piloted with two major consultancies, and refined across 15+ consultant interviews to fit real workflows.",
+      "Built an AI redaction tool for consulting slide decks, saving ~125 hours per consultant annually. Piloted with BCG and OC&C, and refined across 15+ consultant interviews to fit real workflows.",
+    link: "https://github.com/paeb37/dexter",
     image: images.dexter,
     tags: ["AI", "Consulting"],
   },
@@ -113,7 +119,7 @@ const productEntries: Entry[] = [
     role: "Co-Founder",
     summary:
       "Built and shipped a browser extension that gives LeetCode hints, reaching 200+ users organically.",
-    link: "https://beetcodeai.com/",
+    link: "https://chromewebstore.google.com/detail/beetcode/efiojecmnbhdecicbfnejfnegennfhlf?hl=en",
     image: images.beetcode,
     tags: ["Browser extension", "LeetCode"],
   },
@@ -122,6 +128,7 @@ const productEntries: Entry[] = [
     role: "Research",
     summary:
       "Tested whether synthetic document fine-tuning reduces chain of thought honesty in Qwen3 and DeepSeek. Both models lost task accuracy and slipped from 100% to 95% faithfulness. Selected for the BlueDot AI Safety cohort.",
+    link: "https://docs.google.com/document/d/1iBeRhAuN98ljZeEMX26CymIUXfl6VP6YDb7nzirIupM/edit",
     image: images.aiSafety,
     tags: ["PyTorch", "Evaluation"],
   },
@@ -135,16 +142,16 @@ type ExperienceRow = {
   kind: string;
 };
 
-// Engineering first, consulting last — the eye should read "engineer who also
-// consults", not the reverse.
+// Oldest first — reads as a progression, and lands the consulting role at the
+// end as "most recent" rather than as the headline.
 const experience: ExperienceRow[] = [
   {
-    period: "2024",
-    org: "FluidityIQ",
-    role: "Software Engineering Intern",
+    period: "2021 – 2022",
+    org: "Arrow Electronics",
+    role: "Machine Learning Intern",
     summary:
-      "Deployed a patent-search vectorizer via Azure CI/CD, cutting API latency 6x. Built an LLM patent summarizer with modular model-swapping.",
-    kind: "Startup",
+      "Designed and ran 200+ ML experiments (Optuna, ClearML) to forecast electronics lifecycle metrics; improved MAPE 68% relative to baseline models.",
+    kind: "Enterprise",
   },
   {
     period: "2023",
@@ -155,8 +162,16 @@ const experience: ExperienceRow[] = [
     kind: "Mid-size",
   },
   {
+    period: "2024",
+    org: "FluidityIQ",
+    role: "Software Engineering Intern",
+    summary:
+      "Deployed a patent-search vectorizer via Azure CI/CD, cutting API latency 6x. Built an LLM patent summarizer with modular model-swapping.",
+    kind: "Startup",
+  },
+  {
     period: "2025 —",
-    org: "MBB Consulting",
+    org: "Boston Consulting Group",
     role: "Technology & Digital",
     summary:
       "Optimized factory initiatives across procurement and supply chain for an industrial-goods client; proposed AI implementation plan to senior client leadership; received Digital tag for tech specialization.",
@@ -252,10 +267,10 @@ export function PortfolioPage() {
                   <dt className="text-muted">Email</dt>
                   <dd className="text-right">
                     <a
-                      href="mailto:pae.brandon@columbia.edu"
+                      href="mailto:brandon.pae@gmail.com"
                       className="text-accent transition-colors hover:text-accent-strong"
                     >
-                      pae.brandon@columbia.edu
+                      brandon.pae@gmail.com
                     </a>
                   </dd>
                 </div>
@@ -280,14 +295,7 @@ export function PortfolioPage() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                  >
-                    <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.82 1.19 1.85 1.19 3.11 0 4.43-2.7 5.41-5.26 5.7.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
-                  </svg>
+                  <GitHubMark className="h-4 w-4" />
                 </a>
                 <a
                   href="https://linkedin.com/in/brandon-pae"
@@ -323,15 +331,20 @@ export function PortfolioPage() {
               <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-accent">
                 About
               </p>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-foreground">
-                My background is in bridging{" "}
-                <span className="text-accent">hardware and software</span>. I
-                modernized autonomous drone firmware at Columbia&apos;s A2R Lab,
-                and have built machine vision for a production line, autonomous
-                navigation for competition robotics, and low-level systems in C.
-                Alongside that I&apos;ve taken products from zero to one and
-                worked client-facing on enterprise technology.
-              </p>
+              <div className="mt-5 max-w-2xl space-y-4 text-lg leading-8 text-foreground">
+                <p>
+                  My background is in bridging{" "}
+                  <span className="text-accent">hardware and software</span>. I
+                  modernized autonomous drone firmware at Columbia&apos;s A2R
+                  Lab, and have built machine vision for a production line,
+                  autonomous navigation for competition robotics, and low-level
+                  systems in C.
+                </p>
+                <p>
+                  Alongside that I&apos;ve taken products from zero to one and
+                  worked client-facing on enterprise technology.
+                </p>
+              </div>
             </section>
 
             <section
@@ -493,10 +506,15 @@ function ProjectCard({ entry }: { entry: Entry }) {
         <CardMedia entry={entry} />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-4">
-        {entry.role ? (
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
-            {entry.role}
-          </p>
+        {entry.role || entry.link ? (
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+              {entry.role}
+            </p>
+            {entry.link ? (
+              <CardLink href={entry.link} label={entry.title} />
+            ) : null}
+          </div>
         ) : null}
         <h3 className="font-serif text-lg font-semibold tracking-tight text-foreground">
           {entry.link ? (
@@ -527,6 +545,56 @@ function ProjectCard({ entry }: { entry: Entry }) {
         ) : null}
       </div>
     </article>
+  );
+}
+
+/**
+ * Outbound link affordance on a card. Shows the GitHub mark for repos and
+ * gists, an arrow for anything else, so the destination is legible before
+ * the click.
+ */
+function CardLink({ href, label }: { href: string; label: string }) {
+  const isGitHub = /(^|\.)github\.com/.test(new URL(href).hostname);
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`${label} — ${isGitHub ? "source on GitHub" : "visit site"}`}
+      title={isGitHub ? "Source on GitHub" : "Visit site"}
+      className="flex-none rounded-md border border-border p-1.5 text-muted transition-colors hover:border-accent/50 hover:text-accent"
+    >
+      {isGitHub ? (
+        <GitHubMark className="h-3.5 w-3.5" />
+      ) : (
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-3.5 w-3.5"
+        >
+          <path d="M7 17 17 7M9 7h8v8" />
+        </svg>
+      )}
+    </a>
+  );
+}
+
+function GitHubMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="currentColor"
+      className={className}
+    >
+      <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.82 1.19 1.85 1.19 3.11 0 4.43-2.7 5.41-5.26 5.7.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
+    </svg>
   );
 }
 

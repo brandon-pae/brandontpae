@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf7f2; /* ivory page */
-  --surface: #ffffff; /* cards */
-  --foreground: #211c17; /* warm ink */
-  --muted: #8a7f72; /* warm taupe — captions, timestamps */
-  --border: #e7dfd4; /* warm hairline */
-  --accent: #c2663b; /* terracotta */
-  --accent-strong: #a8542f; /* hover / active */
+  --background: #0a0c0b; /* near-black, biased green */
+  --surface: #121614; /* cards */
+  --foreground: #e4e9e6; /* cool off-white */
+  --muted: #7f8d88; /* desaturated sage — captions, meta */
+  --border: #242c29; /* hairline */
+  --accent: #4fd9a4; /* mint */
+  --accent-strong: #7ff0c6; /* hover / active — brighter on dark */
 }
 
 @theme inline {
@@ -43,6 +43,6 @@ body {
 }
 
 ::selection {
-  background: rgba(194, 102, 59, 0.22);
-  color: #211c17;
+  background: rgba(79, 217, 164, 0.28);
+  color: #e4e9e6;
 }

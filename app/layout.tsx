@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
-import { ANNOUNCE_MBA } from "@/components/mba-flag";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,10 +18,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Brandon Pae",
-  description: ANNOUNCE_MBA
-    ? "Brandon Pae — MBB consulting, specializing in digital/tech, MIT Sloan MBA admit, and builder working at the intersection of technology, business, and people."
-    : "Brandon Pae — MBB consulting, specializing in digital/tech, and builder working at the intersection of technology, business, and people.",
+  title: "Brandon Pae — Robotics & Systems",
+  description:
+    "Brandon Pae — working at the seam between hardware, software, and people. Drone firmware and model-predictive control at Columbia's A2R Lab, machine vision for manufacturing, and autonomous navigation.",
 };
 
 export default function RootLayout({

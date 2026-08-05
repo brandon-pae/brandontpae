@@ -1,145 +1,110 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { SectionNav, type SectionNavItem } from "@/components/section-nav";
-import { ANNOUNCE_MBA } from "@/components/mba-flag";
 
 const sectionNavItems: SectionNavItem[] = [
-  { id: "about", label: "About" },
-  { id: "journey", label: "Journey" },
-  { id: "mentoring", label: "Mentoring" },
-  { id: "building", label: "Building" },
+  { id: "robotics", label: "Robotics" },
+  { id: "products", label: "Products" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
 ];
 
 const images = {
   headshot: "/images/headshot.png",
   columbia: "/images/Columbia.png", // Columbia crown crest
-  mit: "/images/MIT_logo.jpg",
-  almaworks: "/images/projects_core.jpeg",
+  a2r: "/images/tinympc.jpg",
+  artaic: "/images/artaic-tiles.jpg",
+  pacbotMaze: "/images/pacbot-maze.jpg",
+  pacbotRobot: "/images/pacbot-robot.jpg",
+  unscripted: "/images/unscripted-network.png",
+  dexter: "/images/Dexter.png",
+  beetcode: "/images/beetcode.png",
+  aiSafety: "/images/ai-safety-results.png",
   spectator: "/images/projects_spec.png",
+  almaworks: "/images/projects_core.jpeg",
   uiDesign: "/images/ui_design.png",
   claude: "/images/projects_claude.png",
-  beetcode: "/images/beetcode.png",
-  dexter: "/images/Dexter.png",
-  a2r: "/images/tinympc.jpg",
 };
-
-type JourneyNode = {
-  period: string;
-  school: string;
-  role?: string;
-  detail?: ReactNode;
-  image?: string;
-  initials?: string;
-};
-
-// Real MIT Sloan content, preserved verbatim for a one-line restore.
-const mitSloanNode: JourneyNode = {
-  period: "Next",
-  school: "MIT Sloan",
-  role: "MBA — Early AdMIT Program",
-  detail: "",
-  image: images.mit,
-};
-
-// Neutral stand-in shown while ANNOUNCE_MBA is false.
-const mbaPlaceholderNode: JourneyNode = {
-  period: "Next",
-  school: "What's next",
-  role: "Deferred MBA application updates coming soon.",
-  detail: "",
-  initials: "···",
-};
-
-// Academic + professional trajectory — emphasized before projects. Missing
-// logos fall back to a letter-tile.
-const journey: JourneyNode[] = [
-  {
-    period: "Undergraduate",
-    school: "Columbia University",
-    role: "B.S. Computer Science + Entrepreneurship",
-    detail: (
-      <>
-        3.99 GPA, <em className="italic">cum laude</em>
-      </>
-    ),
-    image: images.columbia,
-  },
-  {
-    period: "Now",
-    school: "MBB consulting, specializing in digital/tech",
-    role: "Consultant - Technology & Digital",
-    detail: "Advising enterprise clients on performance and automation.",
-    initials: "MBB",
-  },
-  ANNOUNCE_MBA ? mitSloanNode : mbaPlaceholderNode,
-];
 
 type Entry = {
   title: string;
   role?: string;
-  summary: string;
+  summary: ReactNode;
   link?: string;
   image?: string;
+  /** Two-up media band — used where one photo can't carry the project. */
+  imagePair?: [string, string];
+  /** Fully custom media band, e.g. an inline diagram. */
+  media?: ReactNode;
   initials?: string;
   tags?: string[];
-  featured?: boolean;
 };
 
-// Mentoring & Leadership — first content pillar after the journey.
-const mentoringEntries: Entry[] = [
+// Robotics & Systems — the lead pillar. Firmware, vision, autonomy, kernel work.
+const roboticsEntries: Entry[] = [
   {
-    title: "Almaworks Accelerator / CORE",
-    role: "Director",
+    title: "A2R Lab",
+    role: "Research",
     summary:
-      "Mentored 30+ early-stage Columbia founders - connecting them with the right alumni mentors and investors, and helping them sharpen their pitches across five Demo Days.",
-    link: "https://entrepreneurship.columbia.edu/resource/almaworks/",
-    image: images.almaworks,
-    tags: ["Mentorship", "Entrepreneurship"],
+      "Worked on Crazyflie drone firmware in C/C++, optimized tinyMPC for model predictive control, and integrated the system with Crazyswarm2 on ROS 2.",
+    link: "https://github.com/paeb37/a2r-crazyflie-firmware",
+    image: images.a2r,
+    tags: ["Robotics", "C/C++"],
   },
   {
-    title: "Columbia Spectator",
-    role: "Head of Product",
+    title: "Artaic",
+    role: "Engineering Intern",
     summary:
-      "Led a cross-functional product team across three of Spectator's digital products - CULPA, theSHAFT, and the mobile app - running user interviews, defining features, and shipping with engineering.",
-    link: "https://culpa.info/#/",
-    image: images.spectator,
-    tags: ["Product", "Leadership"],
+      "Built a YOLOv5 model to classify mosaic tile types at 90% accuracy, automating the manual inspection every assembled mosaic went through before shipping.",
+    image: images.artaic,
+    tags: ["Computer vision", "YOLOv5"],
   },
   {
-    title: "Columbia Engineering",
-    role: "UI Design Teaching Assistant",
+    title: "PacBot 2024",
+    role: "Software Team",
     summary:
-      "Held weekly office hours, evaluated assignments, and answered questions on the discussion board to keep students moving through the UI design course.",
-    image: images.uiDesign,
-    tags: ["Teaching", "UI design"],
+      "Built the A* pathfinding for Columbia's entry in the 2024 PacBot competition - a robot that plays Pac-Man autonomously on a physical maze - then started on a deep Q-learning policy to push play past what shortest-path search could reach.",
+    imagePair: [images.pacbotMaze, images.pacbotRobot],
+    tags: ["Pathfinding", "Deep Q-learning"],
   },
   {
-    title: "Claude (Anthropic)",
-    role: "Builder Club Ambassador",
-    summary:
-      "Co-founded a hands-on LLM builder community with Anthropic and ran workshops on prompt design, evaluation, and model experimentation - teaching peers to build with AI.",
-    link: "https://www.anthropic.com/",
-    image: images.claude,
-    tags: ["Education", "Community"],
+    title: "Operating Systems",
+    role: "Coursework",
+    summary: (
+      <>
+        Built a process scheduler and a file system in C, down at the kernel
+        level. Team project with{" "}
+        <a
+          href="https://gist.github.com/technology08/72c9d498f84410ef3715f24ff256f139"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent transition-colors hover:text-accent-strong"
+        >
+          Connor Espenshade
+        </a>
+        .
+      </>
+    ),
+    media: <FilesystemDiagram />,
+    tags: ["C", "Kernel"],
   },
 ];
 
-// Building & Research — second content pillar. Leads with Unscripted.
-const buildingEntries: Entry[] = [
+// Products — zero to one, with real users.
+const productEntries: Entry[] = [
   {
     title: "Unscripted",
     role: "Founder",
     summary:
       "Building an AI writing tool that helps people express themselves genuinely - not in the polished, generic voice AI is trained to produce. Initially for college and MBA applicants.",
-    initials: "Un",
+    image: images.unscripted,
     tags: ["AI", "Writing"],
-    featured: true,
   },
   {
     title: "Dexter",
-    role: "Builder",
+    role: "Co-Founder",
     summary:
-      "Built an AI redaction tool for consulting slide decks, saving ~125 hours per consultant annually. Piloted with BCG and OC&C, and refined across 15+ consultant interviews to fit real workflows.",
+      "Built an AI redaction tool for consulting slide decks, saving ~125 hours per consultant annually. Piloted with two major consultancies, and refined across 15+ consultant interviews to fit real workflows.",
     image: images.dexter,
     tags: ["AI", "Consulting"],
   },
@@ -153,13 +118,89 @@ const buildingEntries: Entry[] = [
     tags: ["Browser extension", "LeetCode"],
   },
   {
-    title: "A2R Lab",
+    title: "AI Safety",
     role: "Research",
     summary:
-      "Worked on Crazyflie drone firmware in C/C++, optimized tinyMPC for model predictive control, and integrated the system with Crazyswarm2 on ROS 2.",
-    link: "https://github.com/paeb37/a2r-crazyflie-firmware",
-    image: images.a2r,
-    tags: ["Robotics", "C/C++"],
+      "Tested whether synthetic document fine-tuning degrades honesty in Qwen3 and DeepSeek. Both models lost task accuracy - 95% to 81% and 93% to 86% - and both slipped from 100% to 95% faithfulness. Selected for the BlueDot AI Safety cohort.",
+    image: images.aiSafety,
+    tags: ["PyTorch", "Evaluation"],
+  },
+];
+
+type ExperienceRow = {
+  period: string;
+  org: string;
+  role: string;
+  summary: string;
+  kind: string;
+};
+
+// Engineering first, consulting last — the eye should read "engineer who also
+// consults", not the reverse.
+const experience: ExperienceRow[] = [
+  {
+    period: "2024",
+    org: "FluidityIQ",
+    role: "Software Engineering Intern",
+    summary:
+      "Deployed a patent-search vectorizer via Azure CI/CD, cutting API latency 6x. Built an LLM patent summarizer with modular model-swapping.",
+    kind: "Startup",
+  },
+  {
+    period: "2023",
+    org: "Capco",
+    role: "Software Engineering Intern",
+    summary:
+      "Fixed 66% of open bugs in a major U.S. bank's permissions service; work integrated into client systems.",
+    kind: "Mid-size",
+  },
+  {
+    period: "2025 —",
+    org: "MBB Consulting",
+    role: "Technology & Digital",
+    summary:
+      "Hold the firm's Digital tag. Optimized factory initiatives across procurement and supply chain for an industrial-goods client; presented recommendations to senior client leadership.",
+    kind: "Consulting",
+  },
+];
+
+type Activity = {
+  title: string;
+  role: string;
+  summary: string;
+  image: string;
+};
+
+// Nested under Columbia — keeps the imagery at a fraction of the height cards
+// took, without losing the visual texture entirely.
+const activities: Activity[] = [
+  {
+    title: "Columbia Spectator",
+    role: "Head of Product",
+    summary:
+      "Led a cross-functional product team across three of Spectator's digital products - CULPA, theSHAFT, and the mobile app - running user interviews, defining features, and shipping with engineering.",
+    image: images.spectator,
+  },
+  {
+    title: "Almaworks / CORE",
+    role: "Director",
+    summary:
+      "Mentored 30+ early-stage Columbia founders - connecting them with the right alumni mentors and investors, and helping them sharpen their pitches across five Demo Days.",
+    image: images.almaworks,
+  },
+  {
+    title: "Columbia CS Department",
+    role: "Teaching Assistant",
+    summary:
+      "Mentored 25 students a semester building full-stack apps in Flask and jQuery, and introduced a Figma-first workflow that cut development time 50%. Supported 600+ students through office hours and grading.",
+    image: images.uiDesign,
+  },
+  {
+    title: "Claude Builder Club",
+    role: "Ambassador",
+    summary:
+      "Co-founded a hands-on LLM builder community with Anthropic and ran workshops on prompt design, evaluation, and model experimentation - teaching peers to build with AI.",
+    image: images.claude,
   },
 ];
 
@@ -187,11 +228,10 @@ export function PortfolioPage() {
                   Brandon Pae
                 </h1>
                 <p className="max-w-xs text-sm leading-6 text-muted">
-                  Working at the intersection of technology, business, and
-                  people.
+                  I work at the seam between hardware, software, and people.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {["Builder", "Consultant", "Mentor"].map((chip) => (
+                  {["Robotics", "Systems", "Technical PM"].map((chip) => (
                     <span
                       key={chip}
                       className="rounded-full border border-border px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-muted"
@@ -230,6 +270,22 @@ export function PortfolioPage() {
                   Resume
                 </a>
                 <a
+                  href="https://github.com/paeb37"
+                  className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-muted transition-colors hover:border-accent/50 hover:text-accent"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.82 1.19 1.85 1.19 3.11 0 4.43-2.7 5.41-5.26 5.7.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
+                  </svg>
+                  GitHub
+                </a>
+                <a
                   href="https://linkedin.com/in/brandon-pae"
                   className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-muted transition-colors hover:border-accent/50 hover:text-accent"
                   target="_blank"
@@ -258,96 +314,164 @@ export function PortfolioPage() {
 
           {/* Long-form content. */}
           <div className="mt-12 space-y-16 lg:mt-0 lg:space-y-20">
-            <section id="about" data-section-id className="scroll-mt-12">
+            <section id="about" className="scroll-mt-12">
               <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-accent">
                 About
               </p>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-foreground">
-                Computer Science and Entrepreneurship at Columbia University,
-                graduated <em className="italic">cum laude</em> with a 3.99 GPA. I built my technical foundation
-                through software engineering internships and AI & robotics research
-                - today I work in MBB consulting, specializing in digital/tech.
-
-                <br />
-                <br />
-
-                What I care about most is building at the intersection of artificial
-                intelligence and human expression. I was selected as
-                a coach for Leland and Crimson Education&apos;s competitive
-                admissions networks, gaining firsthand insight into top coaching
-                methodologies. Now, I&apos;m building an independent coaching
-                tool, <span className="text-accent">Unscripted</span>.
+                My background is in bridging{" "}
+                <span className="text-accent">hardware and software</span>. I
+                modernized autonomous drone firmware at Columbia&apos;s A2R Lab,
+                and have built machine vision for a production line, autonomous
+                navigation for competition robotics, and low-level systems in C.
+                Alongside that I&apos;ve taken products from zero to one and
+                worked client-facing on enterprise technology.
               </p>
             </section>
 
-            <section id="journey" data-section-id className="scroll-mt-12 space-y-6">
+            <section
+              id="robotics"
+              data-section-id
+              className="scroll-mt-12 space-y-6"
+            >
               <SectionHeader
-                kicker="01"
-                title="Journey"
-                description="Columbia, MBB consulting, and deferred MBA"
+                title="Robotics & Systems"
+                description="Firmware and control, machine vision, autonomy, low-level systems."
               />
+              <div className="grid gap-5 sm:grid-cols-2">
+                {roboticsEntries.map((entry) => (
+                  <ProjectCard key={entry.title} entry={entry} />
+                ))}
+              </div>
+            </section>
 
-              <div className="relative space-y-7 sm:space-y-8">
-                <span
-                  aria-hidden
-                  className="absolute left-6 top-3 bottom-3 w-px bg-border sm:left-7"
-                />
-                {journey.map((node) => (
+            <section
+              id="products"
+              data-section-id
+              className="scroll-mt-12 space-y-6"
+            >
+              <SectionHeader
+                title="Products"
+                description="Built, shipped, and put in front of real users."
+              />
+              <div className="grid gap-5 sm:grid-cols-2">
+                {productEntries.map((entry) => (
+                  <ProjectCard key={entry.title} entry={entry} />
+                ))}
+              </div>
+            </section>
+
+            <section
+              id="experience"
+              data-section-id
+              className="scroll-mt-12 space-y-6"
+            >
+              <SectionHeader
+                title="Experience"
+                description="Software engineering, then enterprise technology consulting."
+              />
+              <div className="divide-y divide-border">
+                {experience.map((role) => (
                   <div
-                    key={node.school}
-                    className="relative grid grid-cols-[3rem_1fr] gap-4 sm:grid-cols-[3.5rem_1fr] sm:gap-5"
+                    key={role.org}
+                    className="grid gap-1 py-4 sm:grid-cols-[7rem_1fr_auto] sm:items-baseline sm:gap-6"
                   >
-                    <div className="relative z-10 h-12 w-12 overflow-hidden rounded-full border border-border bg-surface sm:h-14 sm:w-14">
-                      <NodeLogo
-                        image={node.image}
-                        initials={node.initials}
-                        alt={node.school}
-                      />
-                    </div>
-                    <div className="pt-1">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
-                        {node.period}
+                    <p className="font-mono text-[11px] tracking-[0.08em] text-muted tabular-nums">
+                      {role.period}
+                    </p>
+                    <div>
+                      <p className="text-[15px] font-semibold text-foreground">
+                        {role.org} — {role.role}
                       </p>
-                      <h3 className="font-serif text-xl font-semibold tracking-tight text-foreground">
-                        {node.school}
-                      </h3>
-                      {node.role ? (
-                        <p className="text-sm font-medium text-accent">
-                          {node.role}
-                        </p>
-                      ) : null}
-                      {node.detail ? (
-                        <p className="text-sm text-muted">{node.detail}</p>
-                      ) : null}
+                      <p className="mt-0.5 text-sm leading-6 text-muted">
+                        {role.summary}
+                      </p>
                     </div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                      {role.kind}
+                    </p>
                   </div>
                 ))}
               </div>
             </section>
 
-            <section id="mentoring" data-section-id className="scroll-mt-12 space-y-6">
+            <section
+              id="education"
+              data-section-id
+              className="scroll-mt-12 space-y-6"
+            >
               <SectionHeader
-                kicker="02"
-                title="Mentoring & Leadership"
-                description="Founders, product teams, and students - mostly through teaching and coaching."
+                title="Education"
+                description="Columbia, and what I did outside of class while I was there."
               />
-              <div className="grid gap-5 sm:grid-cols-2">
-                {mentoringEntries.map((entry) => (
-                  <ProjectCard key={entry.title} entry={entry} />
-                ))}
-              </div>
-            </section>
 
-            <section id="building" data-section-id className="scroll-mt-12 space-y-6">
-              <SectionHeader
-                kicker="03"
-                title="Building & Research"
-                description="Products and technical work at the intersection of AI and human expression."
-              />
-              <div className="grid gap-5 sm:grid-cols-2">
-                {buildingEntries.map((entry) => (
-                  <ProjectCard key={entry.title} entry={entry} />
-                ))}
+              <div className="overflow-hidden rounded-lg border border-border bg-surface">
+                <div className="grid grid-cols-[auto_1fr] gap-5 p-5">
+                  <div className="relative h-14 w-14 overflow-hidden rounded-full border border-border bg-background">
+                    <Image
+                      src={images.columbia}
+                      alt="Columbia University"
+                      fill
+                      sizes="56px"
+                      className="object-contain p-1.5"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-semibold tracking-tight text-foreground">
+                      Columbia University
+                    </h3>
+                    <p className="mt-0.5 text-[15px] text-foreground">
+                      B.S. Computer Science,{" "}
+                      <em className="italic">cum laude</em> — Minor in
+                      Entrepreneurship
+                    </p>
+                    <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
+                      3.99 GPA · 2022 – 2026
+                    </p>
+                    <p className="mt-2.5 text-[13px] leading-6 text-muted">
+                      Operating Systems · Advanced Programming in C · Parallel
+                      Optimization for Robotics · VR/AR in Unity · Artificial
+                      Intelligence · Natural Language Processing
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border-t border-border bg-background p-5">
+                  <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-muted">
+                    Activities & Leadership
+                  </p>
+                  <div className="grid gap-4 border-l-2 border-accent/60 pl-5 sm:grid-cols-2 sm:gap-x-8">
+                    {activities.map((activity) => (
+                      <div
+                        key={activity.title}
+                        className="grid grid-cols-[44px_1fr] gap-3"
+                      >
+                        <div className="relative h-11 w-11 overflow-hidden rounded-md border border-border bg-surface">
+                          <Image
+                            src={activity.image}
+                            alt={activity.title}
+                            fill
+                            sizes="44px"
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <div className="flex flex-wrap items-baseline gap-2">
+                            <p className="text-[15px] font-semibold text-foreground">
+                              {activity.title}
+                            </p>
+                            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+                              {activity.role}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-[13px] leading-6 text-muted">
+                            {activity.summary}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </section>
           </div>
@@ -359,18 +483,9 @@ export function PortfolioPage() {
 
 function ProjectCard({ entry }: { entry: Entry }) {
   return (
-    <article
-      className={`flex flex-col overflow-hidden rounded-lg border bg-surface shadow-sm transition-shadow hover:shadow-md ${
-        entry.featured ? "border-accent/40" : "border-border"
-      }`}
-    >
+    <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-sm transition-shadow hover:shadow-md">
       <div className="relative h-40 border-b border-border bg-background">
-        <EntryMedia
-          image={entry.image}
-          initials={entry.initials}
-          alt={entry.title}
-          sizes="(min-width: 640px) 40vw, 100vw"
-        />
+        <CardMedia entry={entry} />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-4">
         {entry.role ? (
@@ -410,6 +525,41 @@ function ProjectCard({ entry }: { entry: Entry }) {
   );
 }
 
+function CardMedia({ entry }: { entry: Entry }) {
+  if (entry.media) {
+    return <>{entry.media}</>;
+  }
+
+  if (entry.imagePair) {
+    const [primary, secondary] = entry.imagePair;
+
+    return (
+      <div className="grid h-full grid-cols-[1.5fr_1fr] gap-px bg-border">
+        {[primary, secondary].map((src) => (
+          <div key={src} className="relative bg-background">
+            <Image
+              src={src}
+              alt={entry.title}
+              fill
+              sizes="(min-width: 640px) 20vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <EntryMedia
+      image={entry.image}
+      initials={entry.initials}
+      alt={entry.title}
+      sizes="(min-width: 640px) 40vw, 100vw"
+    />
+  );
+}
+
 function EntryMedia({
   image,
   initials,
@@ -443,48 +593,123 @@ function EntryMedia({
   );
 }
 
-function NodeLogo({
-  image,
-  initials,
-  alt,
-}: {
-  image?: string;
-  initials?: string;
-  alt: string;
-}) {
-  if (image) {
-    return (
-      <Image
-        src={image}
-        alt={alt}
-        fill
-        sizes="56px"
-        className="object-contain p-1.5"
-      />
-    );
-  }
+/**
+ * The filesystem we built, drawn rather than photographed — the whiteboard
+ * sketch it came from was an angled phone shot that wouldn't hold up at card
+ * size. Colors come from the theme tokens so it tracks the palette.
+ */
+function FilesystemDiagram() {
+  const blocks = [
+    { label: "superblock", accent: true },
+    { label: "inode store", accent: false },
+    { label: "data block 0", accent: false },
+    { label: "data block 1", accent: false },
+  ];
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-accent/8 font-mono text-sm font-semibold text-accent">
-      {initials}
+    <div className="flex h-full w-full items-center justify-center p-3">
+      <svg
+        viewBox="0 0 330 150"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Filesystem layout: superblock, inode store, and data blocks on disk, linked to a directory entry and file contents."
+        className="h-full w-full font-mono"
+      >
+        <text x="16" y="13" fontSize="6.5" letterSpacing="1.2" className="fill-muted">
+          ON DISK
+        </text>
+        <text x="198" y="13" fontSize="6.5" letterSpacing="1.2" className="fill-muted">
+          RESOLVED
+        </text>
+
+        {blocks.map((block, index) => {
+          const y = 22 + index * 28;
+
+          return (
+            <g key={block.label}>
+              <rect x="16" y={y} width="112" height="28" className="fill-surface" />
+              <rect
+                x="16"
+                y={y}
+                width="112"
+                height="28"
+                fill="none"
+                strokeWidth="1"
+                className={block.accent ? "stroke-accent/70" : "stroke-border"}
+              />
+              <text
+                x="26"
+                y={y + 18}
+                fontSize="8"
+                className={block.accent ? "fill-accent" : "fill-muted"}
+              >
+                {block.label}
+              </text>
+            </g>
+          );
+        })}
+
+        {[
+          "M128 64 C 160 64, 168 44, 198 44",
+          "M128 92 C 160 92, 168 102, 198 102",
+          "M128 120 C 160 120, 168 112, 198 112",
+        ].map((d) => (
+          <path
+            key={d}
+            d={d}
+            fill="none"
+            strokeWidth="0.9"
+            className="stroke-accent/60"
+          />
+        ))}
+
+        <rect x="198" y="26" width="112" height="36" className="fill-surface" />
+        <rect
+          x="198"
+          y="26"
+          width="112"
+          height="36"
+          fill="none"
+          strokeWidth="1"
+          className="stroke-accent/70"
+        />
+        <text x="208" y="42" fontSize="8" className="fill-accent">
+          dentry
+        </text>
+        <text x="208" y="55" fontSize="8" className="fill-muted">
+          hello.txt
+        </text>
+
+        <rect x="198" y="82" width="112" height="46" className="fill-surface" />
+        <rect
+          x="198"
+          y="82"
+          width="112"
+          height="46"
+          fill="none"
+          strokeWidth="1"
+          className="stroke-border"
+        />
+        <text x="208" y="102" fontSize="8" className="fill-muted">
+          file contents
+        </text>
+        <text x="208" y="115" fontSize="8" className="fill-muted">
+          of hello.txt
+        </text>
+      </svg>
     </div>
   );
 }
 
 function SectionHeader({
-  kicker,
   title,
   description,
 }: {
-  kicker: string;
   title: string;
   description: string;
 }) {
   return (
-    <header className="space-y-2 border-b border-border pb-4">
-      <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-accent">
-        {kicker}
-      </p>
+    <header className="border-b border-border pb-4">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <h2 className="font-serif text-2xl font-semibold tracking-tight text-foreground">
           {title}
